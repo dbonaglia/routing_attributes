@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-function getClassFromDirectory(string $directory) {
+function getClassesFromDirectory(string $directory) {
     $controllers = [];
     if ($dir = opendir("../app/Controllers/")) {
         while($file = readdir($dir)) {
@@ -15,10 +15,10 @@ function getClassFromDirectory(string $directory) {
     return $controllers;
 }
 
-$classes = getClassFromDirectory('../app/Controllers/');
+$classes = getClassesFromDirectory('../app/Controllers/');
 
-foreach ($classes as $class) {     
-    $reflection = new ReflectionClass($class);
+foreach ($classes as $class) {
+    $reflection = new ReflectionClass($class); // It's works, but have to find an other way to do it without make an instance for each controller...
     foreach ($reflection->getMethods() as $method) {
         foreach ($method->getAttributes(App\Controllers\Route::class) as $attribute) {
             foreach ($attribute->getArguments() as $argument) {
