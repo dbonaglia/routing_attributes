@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-function getClassesFromDirectory(string $directory) {
+function getClassesFromDirectory() {
     $controllers = [];
     if ($dir = opendir("../app/Controllers/")) {
         while($file = readdir($dir)) {
@@ -15,7 +15,7 @@ function getClassesFromDirectory(string $directory) {
     return $controllers;
 }
 
-$classes = getClassesFromDirectory('../app/Controllers/');
+$classes = getClassesFromDirectory();
 
 foreach ($classes as $class) {
     $reflection = new ReflectionClass($class); // It's works, but have to find an other way to do it without make an instance for each controller...
